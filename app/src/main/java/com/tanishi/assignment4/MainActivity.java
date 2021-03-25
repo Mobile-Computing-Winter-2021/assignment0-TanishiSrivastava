@@ -42,7 +42,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
 
     private Sensor linearacc,gravity,light,temp,proxi,acc;
-    FusedLocationProviderClient client;
+    private FusedLocationProviderClient client;
     private SensorManager sensorManager;
     private double longtitude,latitude;
     private float x,y,z;
@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Context context;
     private Switch Toglinear,Togtemp,Toglight,Togprox,Toggps,Togacc;
     private Data data;
-    Button b1,b2;
-    TextView average;
+    private Button b1,b2;
+    private TextView average;
     private float[] grav;
     private float accel,accCurr,accLast;
 
@@ -210,8 +210,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Toggps.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                        == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_COARSE_LOCATION)
+                if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(context,Manifest.permission.ACCESS_COARSE_LOCATION)
                         ==PackageManager.PERMISSION_GRANTED) {
                     //Toast.makeText(context,"GPS mode on",Toast.LENGTH_SHORT).show();
                     getCurrentLocation();
@@ -237,22 +237,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Toast.makeText(context,"Permission denied",Toast.LENGTH_SHORT).show();
         }
     }
+
     @SuppressLint("MissingPermission")
     private void getCurrentLocation() {
         LocationManager locationManager=(LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)||
-        locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             client.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
                     Location location = task.getResult();
+                    Log.i("location","value"+location);
                     if (location != null) {
-                        Toast.makeText(context,"GPS mode on",Toast.LENGTH_SHORT).show();
                         latitude = location.getLatitude();
                         longtitude = location.getLongitude();
                         GPS g=new GPS();
                         g.setLatitude(latitude);
                         g.setLongtitute(longtitude);
+                        Toast.makeText(context,"data-"+longtitude+latitude,Toast.LENGTH_SHORT).show();
                         data.gpsIn().insert(g);
                     } else {
                         Toast.makeText(context,"GPS mode on 2",Toast.LENGTH_SHORT).show();
@@ -263,14 +264,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                                 .setNumUpdates(1);
                         LocationCallback locationCallback = new LocationCallback() {
                             @Override
-                            public void onLocationResult(@NonNull LocationResult locationResult) {
+                            public void onLocationResult(LocationResult locationResult) {
                                 Location location1 = locationResult.getLastLocation();
+                                Log.i("location","value"+location1.getLatitude());
                                 latitude = location1.getLatitude();
                                 longtitude = location1.getLongitude();
                                 GPS g=new GPS();
                                 g.setLatitude(latitude);
                                 g.setLongtitute(longtitude);
                                 data.gpsIn().insert(g);
+                                Toast.makeText(context,"data-"+longtitude+latitude,Toast.LENGTH_SHORT).show();
                             }
 
                         };
