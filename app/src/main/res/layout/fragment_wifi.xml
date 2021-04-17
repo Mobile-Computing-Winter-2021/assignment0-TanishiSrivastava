@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".WifiFragment">
+    <!-- TODO: Update blank fragment layout -->
+        <Switch
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:id="@+id/switch_wifi"
+            android:layout_alignParentRight="true"
+            />
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/switch_wifi"
+            android:id="@+id/mylist"/>
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Enter Room"
+            android:textSize="18dp"
+            android:id="@+id/type"
+            android:layout_margin="8dp"
+            android:layout_below="@+id/mylist"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="type room no."
+            android:textSize="15dp"
+            android:id="@+id/myroom"
+            android:layout_below="@+id/mylist"
+            android:layout_toRightOf="@+id/type"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/submit"
+            android:text="submit"
+            android:layout_below="@+id/myroom"
+            android:layout_centerInParent="true" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/submit"
+            android:id="@+id/predict"
+            android:text="Predict Room"
+            android:layout_centerInParent="true"/>
+</RelativeLayout>
+
+
