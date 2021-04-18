@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.lang.reflect.Array;
@@ -90,7 +91,7 @@ public class BarFragment extends Fragment {
                 barChart.setTouchEnabled(true);
                 barChart.setDragEnabled(true);
                 barChart.setScaleEnabled(true);
-                barChart.getDescription().setText("Representation of Signal Strength");
+                barChart.getDescription().setEnabled(false);
                 barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
                 barChart.animateY(5000);
 

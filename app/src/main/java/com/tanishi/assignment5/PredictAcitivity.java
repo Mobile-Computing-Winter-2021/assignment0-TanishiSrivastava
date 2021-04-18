@@ -131,7 +131,7 @@ public class PredictAcitivity extends AppCompatActivity{
                     if (option.equals("Predict your room")) {
                         listView.setVisibility(View.INVISIBLE);
                         showresult.setVisibility(View.VISIBLE);
-                        showresult.setText(result.get(0));
+                        showresult.setText("You are in "+result.get(0));
                     }
 
                 }
